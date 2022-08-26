@@ -24,3 +24,20 @@ def article_list(request):
             serializer.save()
             return JsonResponse(serializer.data ,status = 201)
         return JsonResponse(serializer.errors, status= 400)
+
+
+@csrf_exempt
+def article_detail(request, pk):
+    try:
+        article = Article.objects.get(pk = pk)
+    
+    except Article.DoesNotExist:
+        return HttpResponse(status = 404)
+
+    
+    if request.method == 'GET':
+        serializer = ArticleSerializer(article)
+        return JsonResponse(serializer.data, status = 200)
+
+
+
