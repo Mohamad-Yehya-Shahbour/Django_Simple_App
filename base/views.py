@@ -46,6 +46,9 @@ def article_detail(request, pk):
             serializer.save()
             return JsonResponse(serializer.data)
         return JsonResponse(serializer.errors, status= 400)
-
+    
+    elif request.method == 'DELETE':
+        article.delete()
+        return JsonResponse(status=status.HTTP_204_NO_CONTENT)
 
 
